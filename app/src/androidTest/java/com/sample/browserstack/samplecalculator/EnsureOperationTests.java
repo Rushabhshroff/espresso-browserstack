@@ -1,8 +1,11 @@
 package com.sample.browserstack.samplecalculator;
 
+import android.Manifest;
+
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.GrantPermissionRule;
 
 import com.squareup.spoon.Spoon;
 
@@ -31,7 +34,9 @@ public class EnsureOperationTests {
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
     private MainActivity mainActivity;
-
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE);
     @Before
     public void setUp() {
         mainActivity = activityRule.getActivity();
