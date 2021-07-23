@@ -1,13 +1,11 @@
 package com.sample.browserstack.samplecalculator;
 
-import android.Manifest;
+
 
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.GrantPermissionRule;
 
-import com.squareup.spoon.Spoon;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,9 +32,6 @@ public class EnsureInputTests {
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
     private MainActivity mainActivity;
-    @Rule
-    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE);
     @Before
     public void setUp() {
         mainActivity = activityRule.getActivity();
@@ -44,18 +39,14 @@ public class EnsureInputTests {
 
     @Test
     public void ensureSingleInputIsHandled() {
-        Spoon.screenshot(mainActivity, "initial_state");
         onView(withId(R.id.buttonOne)).perform(click());
         onView(withId(R.id.editText)).check(matches(withText("1")));
-        Spoon.screenshot(mainActivity, "post_multiple_btn_click");
     }
 
     @Test
     public void ensureMultipleInputIsHandled() {
-        Spoon.screenshot(mainActivity, "initial_state");
         onView(withId(R.id.buttonOne)).perform(click());
         onView(withId(R.id.buttonTwo)).perform(click());
         onView(withId(R.id.editText)).check(matches(withText("12")));
-        Spoon.screenshot(mainActivity, "post_multiple_btn_click");
     }
 }
